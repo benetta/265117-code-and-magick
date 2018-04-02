@@ -1,11 +1,21 @@
 'use strict';
 
-var CLOUD_WIDTH = 420;
-var CLOUD_HEIGHT = 270;
-
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
-  ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
+  ctx.beginPath();
+  ctx.moveTo(x, (y + 10));
+  ctx.lineTo(x, (y + 260));
+  ctx.bezierCurveTo(x, (y + 260), (x + 75), 300, (x + 125), (y + 260));
+  ctx.bezierCurveTo((x + 125), (y + 260), (x + 150), 300, (x + 180), (y + 260));
+  ctx.bezierCurveTo((x + 180), (y + 260), (x + 200), 285, (x + 240), (y + 260));
+  ctx.bezierCurveTo((x + 240), (y + 260), (x + 275), 320, (x + 350), (y + 260));
+  ctx.bezierCurveTo((x + 350), (y + 260), (x + 390), 290, (x + 420), (y + 260));
+  ctx.lineTo((x + 420), (y + 10));
+  ctx.bezierCurveTo((x + 420), (y + 10), (x + 380), (y - 25), (x + 250), (y + 10));
+  ctx.bezierCurveTo((x + 250), (y + 10), (x + 210), (y - 10), (x + 150), (y + 10));
+  ctx.bezierCurveTo((x + 150), (y + 10), (x + 105), (y - 30), (x + 50), (y + 10));
+  ctx.bezierCurveTo((x + 50), (y + 10), (x + 25), (y - 20), x, (y + 10));
+  ctx.fill();
 };
 
 var getHeight = function (times, num) {
