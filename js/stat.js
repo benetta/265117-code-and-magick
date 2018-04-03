@@ -1,5 +1,9 @@
 'use strict';
 
+var COLUMN_WIDTH = 40;
+var TOP_TEXT_POSITION = 85;
+var BOTTOM_TEXT_POSITION = 265;
+
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
   ctx.beginPath();
@@ -31,9 +35,6 @@ var getHeight = function (times, num) {
 };
 
 var renderColumn = function (ctx, x, y, names, times) {
-  var COLUMN_WIDTH = 40;
-  var TOP_TEXT_POSITION = 85;
-  var BOTTOM_TEXT_POSITION = 265;
   var xInitial = 120;
   var height = 0;
   var yPosition = 0;
@@ -62,7 +63,7 @@ window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, 100, 10, '#fff');
 
   ctx.fillStyle = '#000';
-  ctx.font = '16px PT-Mono';
+  ctx.font = '16px PT Mono';
   ctx.fillText('Ура вы победили!', 120, 40);
   ctx.fillText('Список результатов:', 120, 60);
 
