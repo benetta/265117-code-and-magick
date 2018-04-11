@@ -1,14 +1,17 @@
 'use strict';
 
+var ENTER_KEY = 13;
+var ESC_KEY = 27;
+
 var WIZARDS_NUM = 4;
 
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 var setup = document.querySelector('.setup');
-setup.classList.remove('hidden');
 
 var similarWizards = [];
 
@@ -48,3 +51,84 @@ for (var i = 0; i < WIZARDS_NUM; i++) {
 similarList.appendChild(fragment);
 
 document.querySelector('.setup-similar').classList.remove('hidden');
+
+// кнопки
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
+var setupOpenIcon = document.querySelector('.setup-open-icon');
+var setupWizardEyes = setup.querySelector('.setup-wizard .wizard-eyes');
+var setupWizardFireball = setup.querySelector('.setup-fireball-wrap');
+var setupUsername = setup.querySelector('.setup-user-name');
+
+/**
+ * меняет цвет глаз волшебника и value в eyes-color
+ */
+var onWizardEyesClick = function () {
+  var eyesInput = setup.querySelector('input[name="eyes-color"]');
+  var counter = EYE_COLORS.indexOf(eyesInput.value);
+
+  if (counter === EYE_COLORS.length - 1) {
+    counter = -1;
+  }
+
+  setupWizardEyes.style.fill = EYE_COLORS[counter + 1];
+  eyesInput.value = EYE_COLORS[counter + 1];
+};
+
+/**
+ * меняет цвет мантии волшебника и value в fireball-color
+ */
+var onWizardFireballClick = function () {
+  var fireballInput = setup.querySelector('input[name="fireball-color"]');
+  var counter = FIREBALL_COLORS.indexOf(fireballInput.value);
+
+  if (counter === FIREBALL_COLORS.length - 1) {
+    counter = -1;
+  }
+
+  setupWizardFireball.style.backgroundColor = FIREBALL_COLORS[counter + 1];
+  fireballInput.value = FIREBALL_COLORS[counter + 1];
+};
+
+/**
+ * открывает окно настройки персонажа
+ */
+var onSetupOpenClick = function () {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onSetupEscPress);
+};
+
+/**
+ * закрывает окно настройки персонажа
+ * @param  {object} evt событие
+ */
+var onSetupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEY && evt.target !== setupUsername) {
+    setup.classList.add('hidden');
+  }
+};
+
+var onSetupCloseClick = function () {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onSetupEscPress);
+};
+
+// Обработчики: открываем и закрываем окно
+setupOpen.addEventListener('click', onSetupOpenClick);
+setupClose.addEventListener('click', onSetupCloseClick);
+
+setupOpenIcon.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEY) {
+    onSetupOpenClick();
+  }
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEY) {
+    onSetupCloseClick();
+  }
+});
+
+// Обработчики: меняем цвет глаз и файрбола
+setupWizardEyes.addEventListener('click', onWizardEyesClick);
+setupWizardFireball.addEventListener('click', onWizardFireballClick);
